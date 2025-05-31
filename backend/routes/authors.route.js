@@ -5,5 +5,6 @@ const authors = express.Router()
 
 authors.get("/", authorsController.getAllAuthors)
 authors.get("/:authorId", authorsController.getAuthorById)
+authors.post("/create", authorsController.postNewAuthor)
 
 module.exports = authors

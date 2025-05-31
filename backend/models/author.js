@@ -2,13 +2,13 @@ const mongoose = require('mongoose')
 
 const AuthorSchema = new mongoose.Schema(
     {
-        first_name: {
+        firstName: {
             type: String,
             required: true,
             min: 3,
             max: 80
         },
-        last_name: {
+        lastName: {
             type: String,
             required: true,
             min: 3,
@@ -18,7 +18,7 @@ const AuthorSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        date_of_birth: {
+        dateOfBirth: {
             type: String,
             required: true,
             max: 10

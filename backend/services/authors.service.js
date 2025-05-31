@@ -11,7 +11,14 @@ const getAuthorById = async (id) => {
     return AuthorSchema.findById(id)
 }
 
+const createAuthor = async (body) => {
+    const newAuthor = new AuthorSchema(body)
+
+    return await newAuthor.save()
+}
+
 module.exports = {
     getAuthors,
-    getAuthorById
+    getAuthorById,
+    createAuthor
 }

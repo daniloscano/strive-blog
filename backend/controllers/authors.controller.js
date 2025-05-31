@@ -65,7 +65,35 @@ const getAuthorById = async (req, res) => {
     }
 }
 
+const postNewAuthor = async (req, res) => {
+    const { body } = req
+
+    try {
+        const author = await authorsService.createAuthor(body)
+
+        res
+            .status(201)
+            .send(
+                {
+                    statusCode: 201,
+                    message: "New author created",
+                    author
+                }
+            )
+    } catch (e) {
+        res
+            .status(500)
+            .send(
+                {
+                    statusCode: 500,
+                    message: 'Internal server error'
+                }
+            )
+    }
+}
+
 module.exports = {
     getAllAuthors,
-    getAuthorById
+    getAuthorById,
+    postNewAuthor
 }
