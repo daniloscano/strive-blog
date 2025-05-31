@@ -1,0 +1,43 @@
+const authorsService = require('../services/authors.service')
+
+
+const getAllAuthors = async (req, res) => {
+    const { page = 1, pageSize = 10 } = req.query
+
+    try {
+        const authors = await authorsService.getAuthors(page, pageSize)
+
+        if (authors.data.length === 0) {
+            res
+                .status(404)
+                .send(
+                    {
+                        statusCode: 404,
+                        message: 'No author found'
+                    }
+                )
+        }
+
+        res
+            .status(200)
+            .send(
+                {
+                    statusCode: 200,
+                    authors
+                }
+            )
+    } catch (e) {
+        res
+            .status(500)
+            .send(
+                {
+                    statusCode: 500,
+                    message: 'Internal server error'
+                }
+            )
+    }
+}
+
+module.exports = {
+    getAllAuthors
+}
