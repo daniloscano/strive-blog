@@ -20,10 +20,98 @@ const findAll = async (req, res, next) => {
                 }
             )
     } catch (err) {
-        next()
+        next(err)
+    }
+}
+
+const findById = async (req, res, next) => {
+    const { authorId } = req.params
+
+    try {
+        const author = await authorService.findById(authorId)
+
+        if (!author) {
+            throw new AuthorNotFound()
+        }
+
+        res
+            .status(200)
+            .send(
+                {
+                    statusCode: 200,
+                    author
+                }
+            )
+    } catch (err) {
+        next(err)
+    }
+}
+
+const create = async (req, res, next) => {
+    const { body } = req
+
+    try {
+        const author = await authorService.create(body)
+
+        res
+            .status(201)
+            .send(
+                {
+                    statusCode: 201,
+                    message: `Author ${author._id} created successfully!`,
+                    author
+                }
+            )
+    } catch (err) {
+        next(err)
+    }
+}
+
+const update = async (req, res, next) => {
+    const { authorId } = req.params
+    const { body } = req
+
+    try {
+        const author = await authorService.update(authorId, body)
+
+        res
+            .status(200)
+            .send(
+                {
+                    statusCode: 200,
+                    message: `Author ${authorId} updated successfully!`,
+                    author
+                }
+            )
+    } catch (err) {
+        next(err)
+    }
+}
+
+const remove = async (req, res, next) => {
+    const { authorId } = req.params
+
+    try {
+        const author = await authorService.remove(authorId)
+
+        res
+            .status(200)
+            .send(
+                {
+                    statusCode: 200,
+                    message: `Author ${authorId} deleted successfully!`,
+                    author
+                }
+            )
+    } catch (err) {
+        next(err)
     }
 }
 
 module.exports = {
-    findAll
+    findAll,
+    findById,
+    create,
+    update,
+    remove
 }

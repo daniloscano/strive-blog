@@ -14,6 +14,4 @@ class AuthorNotFound extends HTTPException {
     }
 }
 
-module.exports = {
-    AuthorNotFound
-}
+module.exports = AuthorNotFound
