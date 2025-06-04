@@ -4,9 +4,13 @@ const cors = require('cors')
 const databaseConnection = require('./config/database')
 const PORT = 9099
 
+const authorsRoute = require('./routes/author.route')
+
 const server = express()
 server.use(express.json())
 server.use(cors())
+
+server.use("/authors", authorsRoute)
 
 databaseConnection()
 
