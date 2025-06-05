@@ -34,11 +34,11 @@ const update = async (postId, body) => {
 }
 
 const remove = async (postId) => {
-    const postToDelete = await PostSchema.findById(postId)
+    const postToDelete = await PostSchema.findByIdAndDelete(postId)
 
-    await AuthorSchema.updateOne({ _id: postToDelete.author }, { $pull: { posts: postToDelete } })
+    await AuthorSchema.updateOne({ _id: postToDelete.author._id }, { $pull: { posts: postToDelete._id } })
 
-    return await PostSchema.findByIdAndDelete(postId)
+    return postToDelete
 }
 
 module.exports = {
