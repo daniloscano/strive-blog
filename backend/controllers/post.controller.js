@@ -2,10 +2,15 @@ const postService = require('../services/post.service')
 const PostNotFound = require('../exceptions/post/postNotFound')
 
 const findAll = async (req, res, next) => {
+    const { authorId } = req.params
     const { page = 1, pageSize = 10, title } = req.query
 
     try {
         let filter = {}
+
+        if (authorId) {
+            filter = { author: authorId }
+        }
 
         if (title) {
             filter.title = { $regex: title, $options: 'i' }
