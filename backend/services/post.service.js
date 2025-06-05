@@ -2,7 +2,6 @@ const PostSchema = require('../models/post')
 const AuthorSchema = require('../models/author')
 
 const Pagination = require('../utils/pagination')
-const mongoose = require("mongoose");
 const pagination = new Pagination(PostSchema)
 
 const findAll = async (page, pageSize, filter, sort) => {

@@ -1,12 +1,17 @@
 const postService = require('../services/post.service')
 const PostNotFound = require('../exceptions/post/postNotFound')
-const {response} = require("express");
 
 const findAll = async (req, res, next) => {
-    const { page = 1, pageSize = 10 } = req.query
+    const { page = 1, pageSize = 10, title } = req.query
 
     try {
-        const posts = await postService.findAll(page, pageSize)
+        let filter = {}
+
+        if (title) {
+            filter.title = { $regex: title, $options: 'i' }
+        }
+
+        const posts = await postService.findAll(page, pageSize, filter)
 
         if (posts.data.length === 0) {
             throw new PostNotFound()
