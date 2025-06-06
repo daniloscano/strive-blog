@@ -4,7 +4,14 @@ const Pagination = require('../utils/pagination')
 const pagination = new Pagination(AuthorSchema)
 
 const findAll = async (page, pageSize, filter, sort) => {
-    return await pagination.getPaginatedData(page, pageSize, filter, sort)
+    const populateFields = [
+        {
+            path: 'posts',
+            select: 'title category'
+        }
+    ]
+
+    return await pagination.getPaginatedData(page, pageSize, filter, sort, populateFields)
 }
 
 const findById = async (authorId) => {

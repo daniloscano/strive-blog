@@ -25,7 +25,13 @@ const AuthorSchema = new mongoose.Schema(
             type: String,
             required: true,
             default: 'https://picsum.photos/400/250'
-        }
+        },
+        posts: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'post'
+            }
+        ]
     }, { timestamp: true, strict: true }
 )
 

@@ -3,14 +3,14 @@ class Pagination {
         this.model = model
     }
 
-    async getPaginatedData(page, pageSize, filter = {}, sort = {}, fieldToPopulate = []) {
+    async getPaginatedData(page, pageSize, filter = {}, sort = {}, populateFields = []) {
         const totalResults = await this.model.countDocuments(filter)
         const totalPages = Math.ceil( totalResults / pageSize)
         const data = await this.model.find(filter)
             .sort(sort)
             .limit(pageSize)
             .skip( (page - 1) * pageSize )
-            .populate(fieldToPopulate)
+            .populate(populateFields)
 
         return {
             totalResults,
