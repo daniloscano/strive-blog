@@ -59,9 +59,13 @@ const findById = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-    const { body } = req
+    const { body, file } = req
 
     try {
+        if (file && file.path) {
+            body.cover = file.path
+        }
+
         const post = await postService.create(body)
 
         res
@@ -80,9 +84,13 @@ const create = async (req, res, next) => {
 
 const update = async (req, res, next) => {
     const { postId } = req.params
-    const { body } = req
+    const { body, file } = req
 
     try {
+        if (file && file.path) {
+            body.cover = file.path
+        }
+
         const post = await postService.update(postId, body)
 
         res
