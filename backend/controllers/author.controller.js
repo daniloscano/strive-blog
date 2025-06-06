@@ -48,9 +48,13 @@ const findById = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-    const { body } = req
+    const { body, file } = req
 
     try {
+        if (file && file.path) {
+            body.avatar = file.path
+        }
+
         const author = await authorService.create(body)
 
         res
@@ -69,9 +73,13 @@ const create = async (req, res, next) => {
 
 const update = async (req, res, next) => {
     const { authorId } = req.params
-    const { body } = req
+    const { body, file } = req
 
     try {
+        if (file && file.path) {
+            body.avatar = file.path
+        }
+
         const author = await authorService.update(authorId, body)
 
         res
