@@ -17,11 +17,12 @@ const cloudStorage = (folder = 'upload', prefix = 'file') => {
             params: (req, file) => {
                 const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0, 14)
                 const originalName = file.originalname.split('.').pop()
+                const extension = file.originalname.split('.')[1]
                 const fileName = `${prefix}-${timestamp}-${originalName}`
 
                 return {
                     folder: folder,
-                    format: 'png',
+                    format: extension,
                     public_id: fileName
                 }
             }
