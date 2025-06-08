@@ -1,5 +1,26 @@
 const authService = require('../services/auth.service')
 
+const findAuthor = async (req, res, next) => {
+    const { token } = req.header('authorization')
+
+    try {
+        const authorId = token.id
+
+        const author = await authService.findAuthor(authorId)
+
+        res
+            .status(200)
+            .send(
+                {
+                    statusCode: 200,
+                    author
+                }
+            )
+    } catch (err) {
+        next(err)
+    }
+}
+
 const login = async (req, res, next) => {
     const { email, password } = req.body
     try {
@@ -21,5 +42,6 @@ const login = async (req, res, next) => {
 }
 
 module.exports = {
+    findAuthor,
     login
 }

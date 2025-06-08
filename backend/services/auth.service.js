@@ -4,10 +4,14 @@ const AuthorSchema = require('../models/author')
 const AuthorNotFound = require('../exceptions/author/authorNotFound')
 const InvalidPassword = require('../exceptions/auth/InvalidPassword')
 
+const findAuthor = (authorId) => {
+    return AuthorSchema.findById(authorId)
+}
+
 const login = async (email, password) => {
     const author = await AuthorSchema.findOne( { email: email})
 
-    if (!user) {
+    if (!author) {
         throw new AuthorNotFound()
     }
 
@@ -19,7 +23,8 @@ const login = async (email, password) => {
 
     const token = jwt.sign(
         {
-        email: user.email
+            id: author._id,
+            email: author.email
         },
         process.env.JWT_SECRET,
         {
@@ -33,5 +38,6 @@ const login = async (email, password) => {
 }
 
 module.exports = {
+    findAuthor,
     login
 }
