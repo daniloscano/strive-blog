@@ -14,7 +14,14 @@ const tokenVerifier = require('./middlewares/auth/verifyToken')
 
 const server = express()
 server.use(express.json())
-server.use(cors())
+server.use(cors(
+    {
+        origin: [
+            'https://strive-blog-gamma.vercel.app'
+        ],
+        credentials: true
+    }
+))
 
 // server.use(tokenVerifier)
 
