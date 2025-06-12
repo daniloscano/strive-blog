@@ -2,7 +2,7 @@ const express = require('express')
 require('dotenv').config()
 const cors = require('cors')
 const databaseConnection = require('./config/database')
-const PORT = 9099
+const PORT = process.env.PORT || 9099
 
 const authorsRoute = require('./routes/author.route')
 const postsRoute = require('./routes/post.route')
